@@ -24,9 +24,9 @@ class PropertyDemo extends PageViewElement {
           just set the numerical index of which element you wish to show.
         </p>
         <p>
-          Note that we're using the <code>helium-end</code> event here to know
-          when the animation is over so that we can enable the input again at
-          that point.
+          Note that we're using the <code>helium-start</code> and
+          <code>helium-end</code> events to disable the input changing the
+          slides while the animation is running
         </p>
         <p>
           <label for="select-index">Slide Index:</label>
@@ -45,6 +45,7 @@ class PropertyDemo extends PageViewElement {
           class="sample-pages"
           selected="${this._selectedIndex}"
           .animationClasses="${this._propAnimationClasses}"
+          @helium-start="${this._toggleDisabledIndex}"
           @helium-end="${this._toggleDisabledIndex}"
         >
           <div>Slide index: 0</div>
@@ -164,6 +165,7 @@ class PropertyDemo extends PageViewElement {
 <helium-animated-pages
   selected="\${this._selectedIndex}"
   .animationClasses="\${this._propAnimationClasses}"
+  @helium-start="\${this._toggleDisabledIndex}"
   @helium-end="\${this._toggleDisabledIndex}"
 >
   <div>Slide index: 0</div>
@@ -185,7 +187,6 @@ class PropertyDemo extends PageViewElement {
   _indexChanged(e) {
     if (e.target.value) {
       this._selectedIndex = parseInt(e.target.value);
-      this._toggleDisabledIndex();
     }
   }
   _toggleDisabledIndex() {
